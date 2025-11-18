@@ -5,14 +5,14 @@
 
     <groupId>com.loiane</groupId>
     <artifactId>crud-spring</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <name>crud-spring</name>
     <description>Projeto exemplo CRUD Spring + Angular</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.5.6</version>
+        <version>2.6.15</version>
         <relativePath/>
     </parent>
 
