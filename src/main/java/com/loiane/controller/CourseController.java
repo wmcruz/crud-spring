@@ -3,9 +3,9 @@ package com.loiane.controller;
 import com.loiane.model.Course;
 import com.loiane.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,5 +19,12 @@ public class CourseController {
     @GetMapping
     public List<Course> list() {
         return this.courseRepository.findAll();
+    }
+
+    @PostMapping
+    public ResponseEntity<Course> create(@RequestBody Course record) {
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(this.courseRepository.save(record));
     }
 }
