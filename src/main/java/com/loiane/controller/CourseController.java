@@ -21,8 +21,15 @@ public class CourseController {
         return this.courseRepository.findAll();
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Course> findById(@PathVariable final Long id) {
+        return this.courseRepository.findById(id)
+                .map(record -> ResponseEntity.ok().body(record))
+                .orElse(ResponseEntity.notFound().build());
+    }
+
     @PostMapping
-    public ResponseEntity<Course> create(@RequestBody Course record) {
+    public ResponseEntity<Course> create(@RequestBody final Course record) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(this.courseRepository.save(record));
