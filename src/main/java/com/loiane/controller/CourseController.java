@@ -47,4 +47,15 @@ public class CourseController {
                 })
                 .orElse(ResponseEntity.notFound().build());
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable final Long id) {
+        return this.courseRepository
+                .findById(id)
+                .map(recordFound -> {
+                    this.courseRepository.deleteById(id);
+                    return ResponseEntity.noContent().<Void>build();
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
 }
