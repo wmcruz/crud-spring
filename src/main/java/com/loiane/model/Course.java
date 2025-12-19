@@ -2,8 +2,16 @@ package com.loiane.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @Data
 @Entity
@@ -13,9 +21,15 @@ public class Course {
     @JsonProperty("_id")
     private Long id;
 
-    @Column(name = "name", length = 200, nullable = false)
+    @NotBlank
+    @NotNull
+    @Length(min = 5, max = 100)
+    @Column(length = 100, nullable = false)
     private String name;
 
-    @Column(name = "category", length = 10, nullable = false)
+    @NotNull
+    @Length(max = 10)
+    @Pattern(regexp = "Back-end|Front-end")
+    @Column(length = 10, nullable = false)
     private String category;
 }
