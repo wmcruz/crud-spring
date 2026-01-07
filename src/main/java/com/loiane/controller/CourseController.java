@@ -6,7 +6,6 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -37,32 +37,24 @@ public class CourseController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Course> findById(@PathVariable @NotNull @Positive final Long id) {
-        return this.courseService.findById(id)
-                .map(recordFound -> ResponseEntity.ok().body(recordFound))
-                .orElse(ResponseEntity.notFound().build());
+    public Course findById(@PathVariable @NotNull @Positive final Long id) {
+        return this.courseService.findById(id);
     }
 
     @PostMapping
-    public ResponseEntity<Course> create(@RequestBody @Valid final Course course) {
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(this.courseService.create(course));
+    @ResponseStatus(HttpStatus.CREATED)
+    public Course create(@RequestBody @Valid final Course course) {
+        return this.courseService.create(course);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Course> update(@PathVariable @NotNull @Positive final Long id, @RequestBody @Valid final Course course) {
-        return this.courseService
-                .update(id, course)
-                .map(recordFound -> ResponseEntity.ok().body(recordFound))
-                .orElse(ResponseEntity.notFound().build());
+    public Course update(@PathVariable @NotNull @Positive final Long id, @RequestBody @Valid final Course course) {
+        return this.courseService.update(id, course);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable @NotNull @Positive final Long id) {
-        if (this.courseService.delete(id))
-            return ResponseEntity.noContent().<Void>build();
-
-        return ResponseEntity.notFound().build();
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable @NotNull @Positive final Long id) {
+        this.courseService.delete(id);
     }
 }
