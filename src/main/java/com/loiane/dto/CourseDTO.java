@@ -6,6 +6,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.Length;
 
+import java.util.List;
+
 public record CourseDTO(
         @JsonProperty("_id")
         Long id,
@@ -18,5 +20,7 @@ public record CourseDTO(
         @NotNull
         @Length(max = 10)
         @Pattern(regexp = "Back-end|Front-end")
-        String category) {
+        String category,
+
+        List<LessonDTO> lessons) {
 }
