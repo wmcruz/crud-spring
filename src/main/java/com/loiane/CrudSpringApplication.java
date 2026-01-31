@@ -2,6 +2,7 @@ package com.loiane;
 
 import com.loiane.enums.Category;
 import com.loiane.model.Course;
+import com.loiane.model.Lesson;
 import com.loiane.repository.CourseRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -23,6 +24,13 @@ public class CrudSpringApplication {
             Course course = new Course();
             course.setName("Angular com Spring");
             course.setCategory(Category.FRONT_END);
+
+            Lesson lesson = new Lesson();
+            lesson.setName("Introdução");
+            lesson.setYoutubeUrl("/watch?v1");
+            lesson.setCourse(course);
+
+            course.getLessons().add(lesson);
 
             courseRepository.save(course);
         };
