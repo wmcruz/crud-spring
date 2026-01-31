@@ -49,7 +49,7 @@ public class CourseService {
                 .findById(id)
                 .map(recordFound -> {
                     recordFound.setName(course.name());
-                    recordFound.setCategory(course.category());
+                    recordFound.setCategory(this.courseMapper.convertCategoryValue(course.category()));
                     return this.courseRepository.save(recordFound);
                 })
                 .map(courseMapper::toDTO)

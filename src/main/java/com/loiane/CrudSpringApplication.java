@@ -1,5 +1,6 @@
 package com.loiane;
 
+import com.loiane.enums.Category;
 import com.loiane.model.Course;
 import com.loiane.repository.CourseRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -10,9 +11,9 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class CrudSpringApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(CrudSpringApplication.class, args);
-	}
+    public static void main(final String[] args) {
+        SpringApplication.run(CrudSpringApplication.class, args);
+    }
 
     @Bean
     CommandLineRunner initDatabase(final CourseRepository courseRepository) {
@@ -21,7 +22,7 @@ public class CrudSpringApplication {
 
             Course course = new Course();
             course.setName("Angular com Spring");
-            course.setCategory("Front-end");
+            course.setCategory(Category.FRONT_END);
 
             courseRepository.save(course);
         };
