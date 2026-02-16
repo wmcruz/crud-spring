@@ -1,6 +1,8 @@
 package com.loiane.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.loiane.enums.Category;
+import com.loiane.enums.validation.ValueOfEnum;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -21,7 +23,7 @@ public record CourseDTO(
 
         @NotNull
         @Length(max = 10)
-        @Pattern(regexp = "Back-end|Front-end")
+        @ValueOfEnum(enumClass = Category.class)
         String category,
 
         @NotNull
