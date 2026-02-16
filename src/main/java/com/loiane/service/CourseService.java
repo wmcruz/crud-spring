@@ -40,19 +40,22 @@ public class CourseService {
                 .orElseThrow(() -> new RecordNotFoundException(id));
     }
 
-    public CourseDTO create(@Valid @NotNull final CourseDTO course) {
-        return courseMapper.toDTO(this.courseRepository.save(this.courseMapper.toEntity(course)));
+    public CourseDTO create(@Valid @NotNull final CourseDTO courseDTO) {
+        return courseMapper.toDTO(this.courseRepository.save(this.courseMapper.toEntity(courseDTO)));
     }
 
-    public CourseDTO update(@NotNull @Positive final Long id, @Valid final CourseDTO course) {
+    public CourseDTO update(@NotNull @Positive final Long id, @Valid @NotNull final CourseDTO courseDTO) {
         return this.courseRepository
                 .findById(id)
                 .map(recordFound -> {
-                    recordFound.setName(course.name());
-                    recordFound.setCategory(this.courseMapper.convertCategoryValue(course.category()));
-                    return this.courseRepository.save(recordFound);
+                    var course = this.courseMapper.toEntity(courseDTO);
+                    recordFound.setName(courseDTO.name());
+                    recordFound.setCategory(this.courseMapper.convertCategoryValue(courseDTO.category()));
+                    recordFound.getLessons().clear();
+                    course.getLessons()
+                            .forEach(recordFound.getLessons()::add);
+                    return this.courseMapper.toDTO(this.courseRepository.save(recordFound));
                 })
-                .map(courseMapper::toDTO)
                 .orElseThrow(() -> new RecordNotFoundException(id));
     }
 
