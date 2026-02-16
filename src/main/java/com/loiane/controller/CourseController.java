@@ -1,10 +1,13 @@
 package com.loiane.controller;
 
 import com.loiane.dto.CourseDTO;
+import com.loiane.dto.CoursePageDTO;
 import com.loiane.service.CourseService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,10 +17,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import java.util.Objects;
 
 @Validated
@@ -32,8 +35,8 @@ public class CourseController {
     }
 
     @GetMapping
-    public List<CourseDTO> list() {
-        return this.courseService.list();
+    public CoursePageDTO list(@RequestParam(defaultValue = "0") @PositiveOrZero final int pageNumber, @RequestParam(defaultValue = "10") @Positive @Max(100) final int pageSize) {
+        return this.courseService.list(pageNumber, pageSize);
     }
 
     @GetMapping("/{id}")

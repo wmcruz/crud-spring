@@ -42,7 +42,7 @@ public class ApplicationControllerAdvice {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public String handleMethodArgumentTypeMismatchException(final MethodArgumentTypeMismatchException exception) {
         if (Objects.nonNull(exception) && Objects.nonNull(exception.getRequiredType())) {
-            final var type = exception.getRequiredType().getTypeName();
+            final var type = exception.getRequiredType().getName();
             final String[] typeParts = type.split("\\.");
             final var typeName = typeParts[typeParts.length - 1];
             return exception.getName().concat(" should be of type ").concat(typeName);

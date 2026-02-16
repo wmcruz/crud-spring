@@ -13,16 +13,16 @@ public class ValueOfEnumValidator implements ConstraintValidator<ValueOfEnum, Ch
 
     @Override
     public void initialize(final ValueOfEnum annotation) {
-        acceptedValues = Stream.of(annotation.enumClass().getEnumConstants())
-                .map(Enum::name)
+        this.acceptedValues = Stream.of(annotation.enumClass().getEnumConstants())
+                .map(Enum::toString)
                 .collect(Collectors.toList());
     }
 
     @Override
     public boolean isValid(final CharSequence value, final ConstraintValidatorContext context) {
-        if (Objects.isNull(value)) {
+        if (Objects.isNull(value))
             return true;
-        }
-        return false;
+
+        return acceptedValues.contains(value.toString());
     }
 }
