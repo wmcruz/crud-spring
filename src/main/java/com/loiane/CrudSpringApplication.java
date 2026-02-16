@@ -27,7 +27,7 @@ public class CrudSpringApplication {
 
             Lesson lesson = new Lesson();
             lesson.setName("Introdução");
-            lesson.setYoutubeUrl("/watch?v1");
+            lesson.setYoutubeUrl("/watch?v10");
             lesson.setCourse(course);
 
             course.getLessons().add(lesson);
