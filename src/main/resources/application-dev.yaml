@@ -1,0 +1,14 @@
+spring:
+  output:
+    ansi:
+      enabled: ALWAYS
+  datasource:
+    url: "jdbc:mysql://localhost:3306/courses"
+    username: "myuser"
+    password: "secret"
+    driver-class-name: "org.mysql.cj.jdbc.Driver"
+  jpa:
+    hibernate:
+      ddl-auto: create
+    database-platform: "org.hibernate.dialect.MySQLDialect"
+    show-sql: true
