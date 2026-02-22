@@ -1,6 +1,6 @@
 # REST API with Spring Boot and Angular
 
-![Build](https://github.com/wmcruz/crud-angular/actions/workflows/node.js.yml/badge.svg?branch=master)
+![Build](https://github.com/wmcruz/crud-spring/actions/workflows/maven.yml/badge.svg?branch=master)
 
 CRUD Angular + Spring course teacher Loiane. [Repo](https://github.com/loiane/crud-angular-spring/)
 
